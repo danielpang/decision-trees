@@ -138,19 +138,19 @@ def test_predictions(root, df):
 		prediction = predict(root, row)
 		if prediction == row['Outcome']:
 			num_correct += 1
-	print(str(num_correct) + '/' + str(num_data) + " Correct")
+	return round(num_correct/num_data, 2)
 
-# Prints the tree level by level
-def print_tree(root, counter):
+# Prints the tree level starting at given level
+def print_tree(root, level):
 	print(counter*" ", end="")
 	if root.leaf:
 		print(root.predict)
 	else:
 		print(root.attr)
 	if root.left:
-		print_tree(root.left, counter + 1)
+		print_tree(root.left, level + 1)
 	if root.right:
-		print_tree(root.right, counter + 1)
+		print_tree(root.right, level + 1)
 
 # Cleans the input data, removes 'Diagnosis' column and adds 'Outcome' column
 # where 0 means healthy and 1 means colic
@@ -167,19 +167,14 @@ def clean(csv_file_name):
 	return df
 
 def main():
+	# An example use of 'build_tree' and 'predict'
 	df_train = clean('horseTrain.txt')
-
 	attributes =  ['K', 'Na', 'CL', 'HCO', 'Endotoxin', 'Anioingap', 'PLA2', 'SDH', 'GLDH', 'TPP', 'Breath rate', 'PCV', 'Pulse rate', 'Fibrinogen', 'Dimer', 'FibPerDim']
-	print("Building Decision Tree")
 	root = build_tree(df_train, attributes, 'Outcome')
-	print("Print Tree")
-	print_tree(root,0)
-	print("Testing Train data: ", end="")
-	test_predictions(root, df_train)
 
-	print("Testing Test data: ", end="")
+	print("Accuracy of test data")
 	df_test = clean('horseTest.txt')
-	test_predictions(root, df_test)
+	print(str(test_predictions(root, df_test)*100.0) + '%')
 
 if __name__ == '__main__':
 	main()
