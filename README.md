@@ -8,11 +8,11 @@ This implementation was created for learning purposes and each attribute test on
 
 ```python
 # An example use of 'build_tree' and 'predict'
-	df_train = clean('horseTrain.txt')
-	attributes =  ['K', 'Na', 'CL', 'HCO', 'Endotoxin', 'Anioingap', 'PLA2', 'SDH', 'GLDH', 'TPP', 'Breath rate', 'PCV', 'Pulse rate', 'Fibrinogen', 'Dimer', 'FibPerDim']
-	root = build_tree(df_train, attributes, 'Outcome')
+df_train = clean('horseTrain.txt')
+attributes =  ['K', 'Na', 'CL', 'HCO', 'Endotoxin', 'Anioingap', 'PLA2', 'SDH', 'GLDH', 'TPP', 'Breath rate', 'PCV', 'Pulse rate', 'Fibrinogen', 'Dimer', 'FibPerDim']
+root = build_tree(df_train, attributes, 'Outcome')
 
-	print("Accuracy of test data")
-	df_test = clean('horseTest.txt')
-	print(str(test_predictions(root, df_test)*100.0) + '%')
+print("Accuracy of test data")
+df_test = clean('horseTest.txt')
+print(str(test_predictions(root, df_test)*100.0) + '%')
 ```
